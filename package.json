@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
-    "reset": "git reset --hard HEAD && git clean -fd",
-    "use:local": "cp .barfrc.local .barfrc",
-    "use:github": "cp .barfrc.github .barfrc",
-    "reset:github": "bun run scripts/github-reset.ts"
+    "reset-local": "git reset --hard HEAD && git clean -fd",
+    "use-local": "cp .barfrc.local .barfrc",
+    "use-github": "cp .barfrc.github .barfrc",
+    "reset-github": "bun run scripts/github-reset.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
