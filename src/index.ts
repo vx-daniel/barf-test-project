@@ -61,6 +61,18 @@ export function camelCase(s: string): string {
   return words[0].toLowerCase() + words.slice(1).map(w => w[0].toUpperCase() + w.slice(1).toLowerCase()).join('')
 }
 
+/** Returns the number of non-overlapping occurrences of `sub` in `s`. Returns `0` if `sub` is empty. */
+export function countOccurrences(s: string, sub: string): number {
+  if (!sub) return 0
+  let count = 0
+  let idx = 0
+  while ((idx = s.indexOf(sub, idx)) !== -1) {
+    count++
+    idx += sub.length
+  }
+  return count
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
