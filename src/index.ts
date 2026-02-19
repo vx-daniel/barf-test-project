@@ -51,14 +51,24 @@ export function capitalize(s: string): string {
 /** Capitalizes the first letter of each word (split on whitespace). */
 export function titleCase(s: string): string {
   if (s.length === 0) return ''
-  return s.split(/\s+/).filter(Boolean).map(w => capitalize(w)).join(' ')
+  return s
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(w => capitalize(w))
+    .join(' ')
 }
 
 /** Converts a string to camelCase. Splits on whitespace, hyphens, and underscores. */
 export function camelCase(s: string): string {
   const words = s.split(/[\s\-_]+/).filter(Boolean)
   if (words.length === 0) return ''
-  return words[0].toLowerCase() + words.slice(1).map(w => w[0].toUpperCase() + w.slice(1).toLowerCase()).join('')
+  return (
+    words[0].toLowerCase() +
+    words
+      .slice(1)
+      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+      .join('')
+  )
 }
 
 /** Returns the number of non-overlapping occurrences of `sub` in `s`. Returns `0` if `sub` is empty. */
