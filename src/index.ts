@@ -35,3 +35,13 @@ export function padEnd(s: string, targetLen: number, padChar = ' '): string {
   if (padChar.length !== 1) throw new Error('padChar must be a single character')
   return s.padEnd(targetLen, padChar)
 }
+
+/** Converts a string to a URL-safe slug. */
+export function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-{2,}/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
