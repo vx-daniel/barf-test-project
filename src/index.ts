@@ -84,6 +84,12 @@ export function charCount(s: string, opts?: { ignoreSpaces?: boolean }): number 
   return s.length
 }
 
+/** Returns true if the string is a palindrome (case-insensitive, ignoring non-alphanumeric characters). */
+export function isPalindrome(s: string): boolean {
+  const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g, '')
+  return cleaned === cleaned.split('').reverse().join('')
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
