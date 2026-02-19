@@ -73,6 +73,17 @@ export function countOccurrences(s: string, sub: string): number {
   return count
 }
 
+/** Returns the number of words in `s`, splitting on whitespace and ignoring empty tokens. */
+export function wordCount(s: string): number {
+  return s.split(/\s+/).filter(Boolean).length
+}
+
+/** Returns the character count of `s`. When `ignoreSpaces: true`, whitespace is excluded. */
+export function charCount(s: string, opts?: { ignoreSpaces?: boolean }): number {
+  if (opts?.ignoreSpaces) return s.replace(/\s/g, '').length
+  return s.length
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
