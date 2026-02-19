@@ -90,6 +90,16 @@ export function isPalindrome(s: string): boolean {
   return cleaned === cleaned.split('').reverse().join('')
 }
 
+/** Converts a string to kebab-case. */
+export function kebabCase(s: string): string {
+  return s
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .split(/[\s\-_]+/)
+    .filter(Boolean)
+    .map(w => w.toLowerCase())
+    .join('-')
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
