@@ -54,6 +54,13 @@ export function titleCase(s: string): string {
   return s.split(/\s+/).filter(Boolean).map(w => capitalize(w)).join(' ')
 }
 
+/** Converts a string to camelCase. Splits on whitespace, hyphens, and underscores. */
+export function camelCase(s: string): string {
+  const words = s.split(/[\s\-_]+/).filter(Boolean)
+  if (words.length === 0) return ''
+  return words[0].toLowerCase() + words.slice(1).map(w => w[0].toUpperCase() + w.slice(1).toLowerCase()).join('')
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
