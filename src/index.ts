@@ -42,6 +42,18 @@ export function repeat(s: string, n: number): string {
   return s.repeat(n)
 }
 
+/** Uppercases the first character and lowercases the rest. */
+export function capitalize(s: string): string {
+  if (s.length === 0) return ''
+  return s[0].toUpperCase() + s.slice(1).toLowerCase()
+}
+
+/** Capitalizes the first letter of each word (split on whitespace). */
+export function titleCase(s: string): string {
+  if (s.length === 0) return ''
+  return s.split(/\s+/).filter(Boolean).map(w => capitalize(w)).join(' ')
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
