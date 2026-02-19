@@ -1,0 +1,33 @@
+---
+id=010
+title=Add snakeCase function
+state=COMPLETED
+parent=022
+children=
+split_count=0
+---
+
+Add a `snakeCase` function to `src/index.ts`.
+
+## Function
+
+**`snakeCase(s: string): string`**
+Converts a string to snake_case. Splits on whitespace, hyphens, and underscores; joins with `_`; lowercases all words.
+
+Examples:
+```
+snakeCase('Hello World')   → 'hello_world'
+snakeCase('fooBarBaz')     → 'foo_bar_baz'
+snakeCase('foo-bar')       → 'foo_bar'
+snakeCase('  hello  ')     → 'hello'
+```
+
+## Acceptance Criteria
+
+- [x] Splits on spaces, hyphens, and underscores
+- [x] Inserts `_` between camelCase word boundaries
+- [x] All output characters are lowercase
+- [x] Leading/trailing delimiters are ignored
+- [x] `snakeCase('')` returns `''`
+- [x] Exported from `src/index.ts`
+- [x] Tests in `tests/snakeCase.test.ts`
