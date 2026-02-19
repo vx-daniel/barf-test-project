@@ -23,3 +23,15 @@ export function snakeCase(s: string): string {
     .map(w => w.toLowerCase())
     .join('_')
 }
+
+/** Pads the start of `s` with `padChar` (default `' '`) until it reaches `targetLen`. */
+export function padStart(s: string, targetLen: number, padChar = ' '): string {
+  if (padChar.length !== 1) throw new Error('padChar must be a single character')
+  return s.padStart(targetLen, padChar)
+}
+
+/** Pads the end of `s` with `padChar` (default `' '`) until it reaches `targetLen`. */
+export function padEnd(s: string, targetLen: number, padChar = ' '): string {
+  if (padChar.length !== 1) throw new Error('padChar must be a single character')
+  return s.padEnd(targetLen, padChar)
+}
