@@ -36,6 +36,12 @@ export function padEnd(s: string, targetLen: number, padChar = ' '): string {
   return s.padEnd(targetLen, padChar)
 }
 
+/** Returns `s` repeated `n` times. Returns `''` if `n <= 0`. */
+export function repeat(s: string, n: number): string {
+  if (n <= 0) return ''
+  return s.repeat(n)
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
