@@ -72,6 +72,40 @@ barf-test-project/
 | 022 | Add case conversion suite | `SPLIT` |
 | 023 | Add string analysis tools | `SPLIT` |
 
+## GitHub Mode
+
+barf can read and update issues directly from a GitHub repository instead of local files.
+
+**Prerequisites**
+
+- `gh auth login` completed with repo write access
+- Repo admin access (needed for `gh issue delete`)
+
+**Setup**
+
+```sh
+# 1. Set your repo in .barfrc.github
+#    Replace <owner/repo> with e.g. myname/barf-test-project
+vi .barfrc.github
+
+# 2. Activate GitHub mode
+npm run use:github
+
+# 3. Seed GitHub with all 23 local issues (also serves as a full reset)
+npm run reset:github
+
+# 4. Use barf as normal — it now reads/writes GitHub issues
+barf status
+barf plan
+barf build
+
+# 5. Switch back to local file mode at any time
+npm run use:local
+barf status
+```
+
+> **Re-seeding:** `npm run reset:github` deletes all `barf:*`-labeled issues on the repo, then re-creates them from the local `issues/` directory. Run it any time you want a clean slate on GitHub.
+
 ## Configuration
 
 `.barfrc` at the repo root:
