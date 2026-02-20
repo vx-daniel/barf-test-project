@@ -1,5 +1,5 @@
 ISSUE_PROVIDER=github
-GITHUB_REPO=<owner/repo>
+GITHUB_REPO=vx-daniel/barf-test-project
 PLAN_DIR=plans
 PLAN_MODEL=claude-opus-4-6
 BUILD_MODEL=claude-sonnet-4-6
