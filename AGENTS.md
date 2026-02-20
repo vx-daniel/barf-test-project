@@ -1,6 +1,6 @@
 # sample-project
 
-A small string utility library used for testing barf.
+A small math utility library used for testing barf.
 
 ## Commands
 
