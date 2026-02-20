@@ -47,6 +47,7 @@ if (!GITHUB_REPO || GITHUB_REPO === '<owner/repo>') {
 
 const LABELS: Record<string, { color: string; description: string }> = {
   'barf:new': { color: '0075ca', description: 'barf issue state: new' },
+  'barf:interviewing': { color: 'a2eeef', description: 'barf issue state: interviewing' },
   'barf:planned': { color: 'e4e669', description: 'barf issue state: planned' },
   'barf:in-progress': { color: 'fbca04', description: 'barf issue state: in-progress' },
   'barf:stuck': { color: 'd93f0b', description: 'barf issue state: stuck' },
@@ -57,6 +58,7 @@ const LABELS: Record<string, { color: string; description: string }> = {
 
 const STATE_TO_LABEL: Record<string, string> = {
   NEW: 'barf:new',
+  INTERVIEWING: 'barf:interviewing',
   PLANNED: 'barf:planned',
   IN_PROGRESS: 'barf:in-progress',
   STUCK: 'barf:stuck',
