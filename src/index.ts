@@ -110,6 +110,26 @@ export function kebabCase(s: string): string {
     .join('-')
 }
 
+/** Strips leading whitespace (default) or leading occurrences of any character in `chars`. */
+export function ltrim(s: string, chars?: string): string {
+  const isStrip = chars != null
+    ? (ch: string) => chars.includes(ch)
+    : (ch: string) => ch.trim() === ''
+  let i = 0
+  while (i < s.length && isStrip(s[i])) i++
+  return s.slice(i)
+}
+
+/** Strips trailing whitespace (default) or trailing occurrences of any character in `chars`. */
+export function rtrim(s: string, chars?: string): string {
+  const isStrip = chars != null
+    ? (ch: string) => chars.includes(ch)
+    : (ch: string) => ch.trim() === ''
+  let i = s.length
+  while (i > 0 && isStrip(s[i - 1])) i--
+  return s.slice(0, i)
+}
+
 /** Converts a string to a URL-safe slug. */
 export function slugify(s: string): string {
   return s
