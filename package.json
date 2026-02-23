@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
-    "reset-local": "git reset --hard HEAD && git clean -fd",
+    "reset-local": "git reset --hard origin/main && git clean -fd",
     "use-local": "cp .barfrc.local .barfrc",
     "use-github": "cp .barfrc.github .barfrc",
     "reset-github": "bun run scripts/github-reset.ts"
