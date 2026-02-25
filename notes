@@ -1,0 +1,11 @@
+barf-ts    main $!? is 󰏗 v2.0.0 via 🥟 v1.3.9    v24.12.0 on   (us-east-1) took 7s 
+  14:39 ❯ npm run run:local
+
+> barf@2.0.0 run:local
+> bun run src/index.ts --config tests/sample-project/.barfrc.local --cwd tests/sample-project auto
+
+
+barf-ts    main $!? is 󰏗 v2.0.0 via 🥟 v1.3.9    v24.12.0 on   (us-east-1) took 1h15m35s 
+  15:55 ❯ 
+
+ 31% of tokens used
