@@ -102,7 +102,7 @@ export function formatCurrency(n: number, currency?: string): string {
   const [intPart, decPart] = fixed.split('.')
   const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-  return (isNegative ? '-' : '') + symbol + withCommas + '.' + decPart
+  return `${(isNegative ? '-' : '') + symbol + withCommas}.${decPart}`
 }
 
 // ── Variance (issue 009-2) ──────────────────────────────────────────────────
@@ -142,7 +142,7 @@ export function formatPercent(n: number, decimals?: number): string {
   if (!Number.isFinite(n)) return n > 0 ? 'Infinity%' : '-Infinity%'
 
   const d = decimals ?? 2
-  return (n * 100).toFixed(d) + '%'
+  return `${(n * 100).toFixed(d)}%`
 }
 
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
