@@ -47,7 +47,9 @@ describe('formatCurrency', () => {
   })
 
   it('throws on unknown currency code with descriptive message', () => {
-    expect(() => formatCurrency(10, 'ABC')).toThrow('Unknown currency code: ABC')
+    expect(() => formatCurrency(10, 'ABC')).toThrow(
+      'Unknown currency code: ABC',
+    )
   })
 
   // Negative numbers

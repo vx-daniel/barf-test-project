@@ -125,7 +125,9 @@ export function toScientific(n: number, precision?: number): string {
   if (Number.isNaN(n)) return 'NaN'
   if (n === Infinity) return 'Infinity'
   if (n === -Infinity) return '-Infinity'
-  return precision === undefined ? n.toExponential() : n.toExponential(precision)
+  return precision === undefined
+    ? n.toExponential()
+    : n.toExponential(precision)
 }
 
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
