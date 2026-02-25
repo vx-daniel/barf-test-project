@@ -145,6 +145,50 @@ export function formatPercent(n: number, decimals?: number): string {
   return `${(n * 100).toFixed(d)}%`
 }
 
+// ── Range and clamp (issue 012) ──────────────────────────────────────────────
+
+/**
+ * Generates an array of numbers from start (inclusive) to end (exclusive).
+ * When step is omitted, defaults to 1 if start < end, -1 if start > end.
+ * Throws if step is 0. Returns an empty array if step direction conflicts with start→end direction.
+ */
+export function range(start: number, end: number, step?: number): number[] {
+  if (step === 0) throw new Error('Step cannot be zero')
+
+  const inferredStep = step ?? (start <= end ? 1 : -1)
+  const result: number[] = []
+
+  if (inferredStep > 0) {
+    for (let i = start; i < end; i += inferredStep) {
+      result.push(i)
+    }
+  } else {
+    for (let i = start; i > end; i += inferredStep) {
+      result.push(i)
+    }
+  }
+
+  return result
+}
+
+/**
+ * Constrains value to the inclusive range [min, max].
+ * Throws if min > max.
+ */
+export function clamp(value: number, min: number, max: number): number {
+  if (min > max) throw new Error('min must not be greater than max')
+  return Math.max(min, Math.min(max, value))
+}
+
+/**
+ * Returns true if value is within [min, max] (inclusive).
+ * Throws if min > max.
+ */
+export function inRange(value: number, min: number, max: number): boolean {
+  if (min > max) throw new Error('min must not be greater than max')
+  return value >= min && value <= max
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**
