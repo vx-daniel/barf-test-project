@@ -59,6 +59,40 @@ export function factorial(n: number): number {
 
 // fibonacci — not yet implemented (part of issue 004)
 
+// ── Currency formatting (issue 010-3) ───────────────────────────────────────
+
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  USD: '$',
+  EUR: '€',
+  GBP: '£',
+  JPY: '¥',
+}
+
+/**
+ * Formats a number as a currency string (e.g. 1234.5 → "$1,234.50").
+ * @param n - The number to format
+ * @param currency - ISO 4217 currency code (default: "USD")
+ * @throws Error if currency code is unknown
+ */
+export function formatCurrency(n: number, currency?: string): string {
+  if (Number.isNaN(n)) return 'NaN'
+  if (!Number.isFinite(n)) return n > 0 ? 'Infinity' : '-Infinity'
+
+  const code = currency ?? 'USD'
+  const symbol = CURRENCY_SYMBOLS[code]
+  if (symbol === undefined) {
+    throw new Error(`Unknown currency code: ${code}`)
+  }
+
+  const isNegative = n < 0
+  const abs = Math.abs(n)
+  const fixed = abs.toFixed(2)
+  const [intPart, decPart] = fixed.split('.')
+  const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+  return (isNegative ? '-' : '') + symbol + withCommas + '.' + decPart
+}
+
 // ── Variance (issue 009-2) ──────────────────────────────────────────────────
 
 /** Returns the variance of an array of numbers. Population by default; pass { sample: true } for sample variance. */
