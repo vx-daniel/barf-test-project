@@ -189,6 +189,30 @@ export function inRange(value: number, min: number, max: number): boolean {
   return value >= min && value <= max
 }
 
+// ── Mode (issue 003) ─────────────────────────────────────────────────────────
+
+/**
+ * Returns the most frequently occurring value(s) in an array, sorted ascending.
+ * If multiple values share the highest frequency, all are returned (ties).
+ * Throws on empty array.
+ */
+export function mode(nums: number[]): number[] {
+  if (nums.length === 0) throw new Error('Cannot compute mode of empty array')
+
+  const freq = new Map<number, number>()
+  for (const n of nums) {
+    freq.set(n, (freq.get(n) ?? 0) + 1)
+  }
+
+  const maxFreq = Math.max(...freq.values())
+  const modes: number[] = []
+  for (const [n, count] of freq) {
+    if (count === maxFreq) modes.push(n)
+  }
+
+  return modes.sort((a, b) => a - b)
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**
