@@ -56,3 +56,23 @@ export function factorial(n: number): number {
 }
 
 // fibonacci — not yet implemented (part of issue 004)
+
+// ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
+
+/**
+ * Returns the standard deviation of an array of numbers.
+ * Defaults to population standard deviation (divide by N).
+ * Pass `{ sample: true }` to use sample standard deviation (divide by N-1).
+ * Throws on empty array or single-element array when sample=true.
+ */
+export function stddev(nums: number[], opts?: { sample?: boolean }): number {
+  if (nums.length === 0) throw new Error('Cannot compute stddev of empty array')
+  const sample = opts?.sample ?? false
+  if (sample && nums.length === 1) {
+    throw new Error('Cannot compute sample stddev of a single-element array')
+  }
+  const m = mean(nums)
+  const sumSqDev = nums.reduce((acc, n) => acc + (n - m) ** 2, 0)
+  const divisor = sample ? nums.length - 1 : nums.length
+  return Math.sqrt(sumSqDev / divisor)
+}
