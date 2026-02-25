@@ -130,6 +130,21 @@ export function toScientific(n: number, precision?: number): string {
     : n.toExponential(precision)
 }
 
+// ── Percentage formatting (issue 010-2) ──────────────────────────────────────
+
+/**
+ * Formats a ratio as a percentage string (e.g. 0.1234 → "12.34%").
+ * @param n - The ratio to format (0.5 = 50%)
+ * @param decimals - Decimal places in the result (default: 2)
+ */
+export function formatPercent(n: number, decimals?: number): string {
+  if (Number.isNaN(n)) return 'NaN%'
+  if (!Number.isFinite(n)) return n > 0 ? 'Infinity%' : '-Infinity%'
+
+  const d = decimals ?? 2
+  return (n * 100).toFixed(d) + '%'
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test'
-import { formatCurrency, toScientific } from '../src/index'
+import { formatCurrency, toScientific, formatPercent } from '../src/index'
 
 describe('formatCurrency', () => {
   // Basic formatting
@@ -121,5 +121,65 @@ describe('toScientific', () => {
 
   it('returns "-Infinity" for negative Infinity', () => {
     expect(toScientific(-Infinity)).toBe('-Infinity')
+  })
+})
+
+describe('formatPercent', () => {
+  // Basic formatting
+  it('formats a ratio as a percentage', () => {
+    expect(formatPercent(0.1234)).toBe('12.34%')
+    expect(formatPercent(0.5)).toBe('50.00%')
+    expect(formatPercent(1.0)).toBe('100.00%')
+  })
+
+  // Default decimals
+  it('defaults to 2 decimal places', () => {
+    expect(formatPercent(0.1)).toBe('10.00%')
+    expect(formatPercent(0.12345)).toBe('12.35%')
+  })
+
+  // Custom decimals
+  it('supports 0 decimal places with rounding', () => {
+    expect(formatPercent(0.126, 0)).toBe('13%')
+    expect(formatPercent(0.5, 0)).toBe('50%')
+  })
+
+  it('supports 1 decimal place', () => {
+    expect(formatPercent(0.1234, 1)).toBe('12.3%')
+  })
+
+  it('supports 4 decimal places', () => {
+    expect(formatPercent(0.123456, 4)).toBe('12.3456%')
+  })
+
+  // Zero
+  it('returns "0.00%" for zero', () => {
+    expect(formatPercent(0)).toBe('0.00%')
+  })
+
+  it('returns "0%" for zero with 0 decimals', () => {
+    expect(formatPercent(0, 0)).toBe('0%')
+  })
+
+  // Negative numbers
+  it('handles negative numbers', () => {
+    expect(formatPercent(-0.1234)).toBe('-12.34%')
+  })
+
+  it('handles -100%', () => {
+    expect(formatPercent(-1.0)).toBe('-100.00%')
+  })
+
+  // Edge cases: NaN, Infinity
+  it('returns "NaN%" for NaN', () => {
+    expect(formatPercent(NaN)).toBe('NaN%')
+  })
+
+  it('returns "Infinity%" for Infinity', () => {
+    expect(formatPercent(Infinity)).toBe('Infinity%')
+  })
+
+  it('returns "-Infinity%" for -Infinity', () => {
+    expect(formatPercent(-Infinity)).toBe('-Infinity%')
   })
 })
