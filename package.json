@@ -4,12 +4,18 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
+    "build": "bun x tsc --noEmit",
+    "format": "bun x biome format src/ tests/",
+    "lint": "bun x biome lint src/ tests/",
+    "check": "bun run format && bun run lint",
     "reset-local": "git reset --hard origin/main && git clean -fd",
     "use-local": "cp .barfrc.local .barfrc",
     "use-github": "cp .barfrc.github .barfrc",
     "reset-github": "bun run scripts/github-reset.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "typescript": "^5.0.0",
+    "@biomejs/biome": "2.4.4"
   }
 }

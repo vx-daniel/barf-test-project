@@ -8,8 +8,10 @@ describe('mean', () => {
 })
 
 describe('median', () => {
-  it('computes median of odd-length array', () => expect(median([3, 1, 2])).toBe(2))
-  it('computes median of even-length array', () => expect(median([1, 2, 3, 4])).toBe(2.5))
+  it('computes median of odd-length array', () =>
+    expect(median([3, 1, 2])).toBe(2))
+  it('computes median of even-length array', () =>
+    expect(median([1, 2, 3, 4])).toBe(2.5))
   it('handles single element', () => expect(median([7])).toBe(7))
   it('throws on empty array', () => expect(() => median([])).toThrow())
 })

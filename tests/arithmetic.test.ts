@@ -9,7 +9,8 @@ describe('add', () => {
 
 describe('subtract', () => {
   it('subtracts two numbers', () => expect(subtract(5, 3)).toBe(2))
-  it('returns negative for smaller minus larger', () => expect(subtract(3, 5)).toBe(-2))
+  it('returns negative for smaller minus larger', () =>
+    expect(subtract(3, 5)).toBe(-2))
 })
 
 describe('multiply', () => {
@@ -21,5 +22,6 @@ describe('multiply', () => {
 describe('divide', () => {
   it('divides two numbers', () => expect(divide(10, 2)).toBe(5))
   it('returns decimal result', () => expect(divide(7, 2)).toBe(3.5))
-  it('throws on division by zero', () => expect(() => divide(5, 0)).toThrow('Division by zero'))
+  it('throws on division by zero', () =>
+    expect(() => divide(5, 0)).toThrow('Division by zero'))
 })

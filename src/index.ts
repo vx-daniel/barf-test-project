@@ -39,7 +39,9 @@ export function median(nums: number[]): number {
   if (nums.length === 0) throw new Error('Cannot compute median of empty array')
   const sorted = [...nums].sort((a, b) => a - b)
   const mid = Math.floor(sorted.length / 2)
-  return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
+  return sorted.length % 2 !== 0
+    ? sorted[mid]
+    : (sorted[mid - 1] + sorted[mid]) / 2
 }
 
 // ── Factorial (issue 004 — IN_PROGRESS, partial) ─────────────────────────────
@@ -61,8 +63,10 @@ export function factorial(n: number): number {
 
 /** Returns the variance of an array of numbers. Population by default; pass { sample: true } for sample variance. */
 export function variance(nums: number[], opts?: { sample?: boolean }): number {
-  if (nums.length === 0) throw new Error('Cannot compute variance of empty array')
-  if (opts?.sample && nums.length < 2) throw new Error('Sample variance requires at least two data points')
+  if (nums.length === 0)
+    throw new Error('Cannot compute variance of empty array')
+  if (opts?.sample && nums.length < 2)
+    throw new Error('Sample variance requires at least two data points')
   const avg = mean(nums)
   const sumSqDev = nums.reduce((sum, n) => sum + (n - avg) ** 2, 0)
   return sumSqDev / (opts?.sample ? nums.length - 1 : nums.length)

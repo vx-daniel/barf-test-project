@@ -7,7 +7,9 @@ describe('variance', () => {
   })
 
   it('computes sample variance', () => {
-    expect(variance([2, 4, 4, 4, 5, 5, 7, 9], { sample: true })).toBeCloseTo(4.571428571)
+    expect(variance([2, 4, 4, 4, 5, 5, 7, 9], { sample: true })).toBeCloseTo(
+      4.571428571,
+    )
   })
 
   it('returns 0 for identical values', () => {
