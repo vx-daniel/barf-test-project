@@ -106,6 +106,16 @@ export function variance(nums: number[], opts?: { sample?: boolean }): number {
   return sumSqDev / (opts?.sample ? nums.length - 1 : nums.length)
 }
 
+// ── Formatting (issue 010-4) ────────────────────────────────────────────────
+
+/** Formats a number in scientific notation. Omit precision to use JS default. */
+export function toScientific(n: number, precision?: number): string {
+  if (Number.isNaN(n)) return 'NaN'
+  if (n === Infinity) return 'Infinity'
+  if (n === -Infinity) return '-Infinity'
+  return precision === undefined ? n.toExponential() : n.toExponential(precision)
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**

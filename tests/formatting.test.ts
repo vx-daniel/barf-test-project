@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test'
-import { formatCurrency } from '../src/index'
+import { formatCurrency, toScientific } from '../src/index'
 
 describe('formatCurrency', () => {
   // Basic formatting
@@ -75,5 +75,49 @@ describe('formatCurrency', () => {
 
   it('returns "-Infinity" for -Infinity', () => {
     expect(formatCurrency(-Infinity)).toBe('-Infinity')
+  })
+})
+
+describe('toScientific', () => {
+  // Basic formatting
+  it('formats a positive integer', () => {
+    expect(toScientific(1234)).toBe('1.234e+3')
+  })
+
+  it('formats a decimal number with default precision', () => {
+    // toExponential() with no arg: as many digits as needed
+    expect(toScientific(0.00456)).toBe('4.56e-3')
+  })
+
+  // Custom precision
+  it('supports custom precision', () => {
+    expect(toScientific(1234, 2)).toBe('1.23e+3')
+  })
+
+  it('supports precision of 0', () => {
+    expect(toScientific(1234, 0)).toBe('1e+3')
+  })
+
+  // Zero
+  it('returns "0e+0" for zero', () => {
+    expect(toScientific(0)).toBe('0e+0')
+  })
+
+  // Negative numbers
+  it('handles negative numbers', () => {
+    expect(toScientific(-1234)).toBe('-1.234e+3')
+  })
+
+  // Special values
+  it('returns "NaN" for NaN', () => {
+    expect(toScientific(NaN)).toBe('NaN')
+  })
+
+  it('returns "Infinity" for Infinity', () => {
+    expect(toScientific(Infinity)).toBe('Infinity')
+  })
+
+  it('returns "-Infinity" for negative Infinity', () => {
+    expect(toScientific(-Infinity)).toBe('-Infinity')
   })
 })
