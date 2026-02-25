@@ -57,6 +57,17 @@ export function factorial(n: number): number {
 
 // fibonacci — not yet implemented (part of issue 004)
 
+// ── Variance (issue 009-2) ──────────────────────────────────────────────────
+
+/** Returns the variance of an array of numbers. Population by default; pass { sample: true } for sample variance. */
+export function variance(nums: number[], opts?: { sample?: boolean }): number {
+  if (nums.length === 0) throw new Error('Cannot compute variance of empty array')
+  if (opts?.sample && nums.length < 2) throw new Error('Sample variance requires at least two data points')
+  const avg = mean(nums)
+  const sumSqDev = nums.reduce((sum, n) => sum + (n - avg) ** 2, 0)
+  return sumSqDev / (opts?.sample ? nums.length - 1 : nums.length)
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**
