@@ -276,6 +276,24 @@ export function isPrime(n: number): boolean {
   return true
 }
 
+// ── Number formatting (issue 010-1 — COMPLETED) ──────────────────────────────
+
+/** Adds thousand separators to a number (e.g. 1234567 → "1,234,567"). */
+export function formatWithCommas(n: number): string {
+  if (Number.isNaN(n)) return 'NaN'
+  if (!Number.isFinite(n)) return n > 0 ? 'Infinity' : '-Infinity'
+
+  const str = String(n)
+  const [intPart, decPart] = str.split('.')
+  const isNegative = intPart.startsWith('-')
+  const digits = isNegative ? intPart.slice(1) : intPart
+  const withCommas = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+  let result = isNegative ? '-' + withCommas : withCommas
+  if (decPart !== undefined) result += '.' + decPart
+  return result
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**

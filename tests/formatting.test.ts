@@ -1,5 +1,70 @@
 import { describe, it, expect } from 'bun:test'
-import { formatCurrency, toScientific, formatPercent } from '../src/index'
+import {
+  formatWithCommas,
+  formatCurrency,
+  toScientific,
+  formatPercent,
+} from '../src/index'
+
+describe('formatWithCommas', () => {
+  // Basic positive integers
+  it('formats a 7-digit number', () => {
+    expect(formatWithCommas(1234567)).toBe('1,234,567')
+  })
+
+  it('formats a 4-digit number', () => {
+    expect(formatWithCommas(1234)).toBe('1,234')
+  })
+
+  it('does not add commas to 3-digit number', () => {
+    expect(formatWithCommas(123)).toBe('123')
+  })
+
+  // Zero
+  it('returns "0" for zero', () => {
+    expect(formatWithCommas(0)).toBe('0')
+  })
+
+  // Negative numbers
+  it('handles negative numbers', () => {
+    expect(formatWithCommas(-1234)).toBe('-1,234')
+  })
+
+  it('handles large negative numbers', () => {
+    expect(formatWithCommas(-1234567)).toBe('-1,234,567')
+  })
+
+  // Decimals
+  it('preserves decimal part unchanged', () => {
+    expect(formatWithCommas(1234.5678)).toBe('1,234.5678')
+  })
+
+  it('preserves decimal for small numbers', () => {
+    expect(formatWithCommas(0.1234)).toBe('0.1234')
+  })
+
+  it('handles negative decimal numbers', () => {
+    expect(formatWithCommas(-1234.5678)).toBe('-1,234.5678')
+  })
+
+  // Very large numbers
+  it('handles very large numbers', () => {
+    expect(formatWithCommas(1e15)).toBe('1,000,000,000,000,000')
+  })
+
+  // Edge cases: NaN, Infinity
+  it('returns "NaN" for NaN', () => {
+    expect(formatWithCommas(NaN)).toBe('NaN')
+  })
+
+  it('returns "Infinity" for Infinity', () => {
+    expect(formatWithCommas(Infinity)).toBe('Infinity')
+  })
+
+  it('returns "-Infinity" for -Infinity', () => {
+    expect(formatWithCommas(-Infinity)).toBe('-Infinity')
+  })
+})
 
 describe('formatCurrency', () => {
   // Basic formatting
