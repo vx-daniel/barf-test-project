@@ -57,7 +57,19 @@ export function factorial(n: number): number {
   return result
 }
 
-// fibonacci — not yet implemented (part of issue 004)
+/** Returns the nth Fibonacci number (0-indexed). fibonacci(0)=0, fibonacci(1)=1. */
+export function fibonacci(n: number): number {
+  if (n === 0) return 0
+  if (n === 1) return 1
+  let a = 0
+  let b = 1
+  for (let i = 2; i <= n; i++) {
+    const next = a + b
+    a = b
+    b = next
+  }
+  return b
+}
 
 // ── Currency formatting (issue 010-3) ───────────────────────────────────────
 
