@@ -213,6 +213,52 @@ export function mode(nums: number[]): number[] {
   return modes.sort((a, b) => a - b)
 }
 
+// ── Rounding utilities (issue 011) ───────────────────────────────────────────
+
+/**
+ * Rounds n to the given number of decimal places using "round half up".
+ * Handles common floating-point edge cases via Number.EPSILON nudge.
+ */
+export function roundTo(n: number, decimals: number): number {
+  const factor = 10 ** decimals
+  return Math.round((n + Number.EPSILON) * factor) / factor
+}
+
+/**
+ * Ceils n to the given number of decimal places.
+ * When decimals is omitted or 0, behaves like Math.ceil.
+ */
+export function ceil(n: number, decimals?: number): number {
+  if (!decimals) return Math.ceil(n)
+  const factor = 10 ** decimals
+  return Math.ceil(n * factor) / factor
+}
+
+/**
+ * Floors n to the given number of decimal places.
+ * When decimals is omitted or 0, behaves like Math.floor.
+ */
+export function floor(n: number, decimals?: number): number {
+  if (!decimals) return Math.floor(n)
+  const factor = 10 ** decimals
+  return Math.floor(n * factor) / factor
+}
+
+/**
+ * Rounds n to the nearest integer using banker's rounding (round half to even).
+ * When the fractional part is exactly 0.5, rounds to the nearest even integer.
+ */
+export function roundHalfEven(n: number): number {
+  const floored = Math.floor(n)
+  const fraction = n - floored
+
+  if (fraction < 0.5) return floored
+  if (fraction > 0.5) return floored + 1
+
+  // Exactly 0.5 — round to whichever neighbour is even
+  return floored % 2 === 0 ? floored : floored + 1
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**
