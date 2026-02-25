@@ -259,6 +259,23 @@ export function roundHalfEven(n: number): number {
   return floored % 2 === 0 ? floored : floored + 1
 }
 
+// ── Primality (issue 005) ──────────────────────────────────────────────────
+
+/**
+ * Checks whether a number is prime.
+ * Returns false for non-integers, numbers less than 2, and composite numbers.
+ * Uses trial division up to √n for efficiency.
+ */
+export function isPrime(n: number): boolean {
+  if (!Number.isInteger(n) || n < 2) return false
+  if (n === 2) return true
+  if (n % 2 === 0) return false
+  for (let i = 3; i * i <= n; i += 2) {
+    if (n % i === 0) return false
+  }
+  return true
+}
+
 // ── Standard deviation (issue 009-1 — COMPLETED) ─────────────────────────────
 
 /**
