@@ -57,6 +57,22 @@ export function factorial(n: number): number {
 
 // fibonacci — not yet implemented (part of issue 004)
 
+// ── Primality (issue 005) ─────────────────────────────────────────────────────
+
+/**
+ * Returns true if n is a prime number, false otherwise.
+ * Uses trial division up to sqrt(n) with 6k±1 optimisation.
+ */
+export function isPrime(n: number): boolean {
+  if (n < 2) return false
+  if (n < 4) return true          // 2 and 3 are prime
+  if (n % 2 === 0 || n % 3 === 0) return false
+  for (let i = 5; i * i <= n; i += 6) {
+    if (n % i === 0 || n % (i + 2) === 0) return false
+  }
+  return true
+}
+
 // ── Standard deviation (issue 009-1) ─────────────────────────────────────────
 
 /**
