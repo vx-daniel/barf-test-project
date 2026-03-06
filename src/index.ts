@@ -167,6 +167,32 @@ export function roundHalfEven(n: number): number {
   return Math.round(n)
 }
 
+// ── Weight conversions (issue 014) ──────────────────────────────────────────
+
+/** Supported weight units. */
+export type WeightUnit = 'kg' | 'lbs' | 'oz' | 'g'
+
+/** Factor to convert each unit to grams (base unit). */
+const WEIGHT_TO_GRAMS: Record<WeightUnit, number> = {
+  g: 1,
+  kg: 1000,
+  lbs: 453.59237,
+  oz: 28.349523125,
+}
+
+/**
+ * Converts a weight value from one unit to another.
+ * Supported units: kg, lbs, oz, g.
+ * Throws on unrecognised unit.
+ */
+export function convertWeight(value: number, from: WeightUnit, to: WeightUnit): number {
+  const fromFactor = WEIGHT_TO_GRAMS[from]
+  const toFactor = WEIGHT_TO_GRAMS[to]
+  if (fromFactor == null) throw new Error(`Unknown weight unit: ${from}`)
+  if (toFactor == null) throw new Error(`Unknown weight unit: ${to}`)
+  return value * (fromFactor / toFactor)
+}
+
 // ── Standard deviation (issue 009-1) ─────────────────────────────────────────
 
 /**
