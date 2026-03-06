@@ -295,6 +295,19 @@ export function formatWithCommas(n: number): string {
   return sign + withCommas + decPart
 }
 
+// ── Scientific notation (issue 020) ─────────────────────────────────────────
+
+/**
+ * Formats a number in scientific notation.
+ * Optional `precision` controls the number of mantissa decimal digits (default: 2).
+ * Examples: 1234.56 → '1.23e+3', 0 → '0.00e+0'
+ */
+export function toScientific(n: number, precision = 2): string {
+  // Normalise -0 to 0 to avoid '-0.00e+0'
+  const value = Object.is(n, -0) ? 0 : n
+  return value.toExponential(precision)
+}
+
 // ── Generic conversion API (issue 016) ─────────────────────────────────────
 
 /** All supported units across every conversion category. */
