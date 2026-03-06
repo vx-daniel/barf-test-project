@@ -265,6 +265,24 @@ export function stddev(nums: number[], opts?: { sample?: boolean }): number {
   return Math.sqrt(sumSq / divisor)
 }
 
+// ── Number formatting (issue 017) ────────────────────────────────────────────
+
+/**
+ * Formats a number with commas as thousand separators.
+ * Handles negative numbers and preserves decimal places.
+ * Examples: 1234 → '1,234', -1234.56 → '-1,234.56'
+ */
+export function formatWithCommas(n: number): string {
+  const str = String(n)
+  const dotIdx = str.indexOf('.')
+  const intPart = dotIdx === -1 ? str : str.slice(0, dotIdx)
+  const decPart = dotIdx === -1 ? '' : str.slice(dotIdx)
+  const sign = intPart.startsWith('-') ? '-' : ''
+  const digits = sign ? intPart.slice(1) : intPart
+  const withCommas = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return sign + withCommas + decPart
+}
+
 // ── Generic conversion API (issue 016) ─────────────────────────────────────
 
 /** All supported units across every conversion category. */
