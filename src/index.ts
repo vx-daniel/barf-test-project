@@ -167,6 +167,33 @@ export function roundHalfEven(n: number): number {
   return Math.round(n)
 }
 
+// ── Length conversions (issue 013) ──────────────────────────────────────────
+
+/** Supported length units. */
+export type LengthUnit = 'm' | 'km' | 'mi' | 'ft' | 'in'
+
+/** Factor to convert each unit to meters (base unit). */
+const LENGTH_TO_METERS: Record<LengthUnit, number> = {
+  m: 1,
+  km: 1000,
+  mi: 1609.344,
+  ft: 0.3048,
+  in: 0.0254,
+}
+
+/**
+ * Converts a length value from one unit to another.
+ * Supported units: m, km, mi, ft, in.
+ * Throws on unrecognised unit.
+ */
+export function convertLength(value: number, from: LengthUnit, to: LengthUnit): number {
+  const fromFactor = LENGTH_TO_METERS[from]
+  const toFactor = LENGTH_TO_METERS[to]
+  if (fromFactor == null) throw new Error(`Unknown length unit: ${from}`)
+  if (toFactor == null) throw new Error(`Unknown length unit: ${to}`)
+  return value * (fromFactor / toFactor)
+}
+
 // ── Weight conversions (issue 014) ──────────────────────────────────────────
 
 /** Supported weight units. */
@@ -193,6 +220,32 @@ export function convertWeight(value: number, from: WeightUnit, to: WeightUnit): 
   return value * (fromFactor / toFactor)
 }
 
+// ── Volume conversions (issue 015) ──────────────────────────────────────────
+
+/** Supported volume units. */
+export type VolumeUnit = 'l' | 'ml' | 'gal' | 'cup'
+
+/** Factor to convert each unit to liters (base unit). */
+const VOLUME_TO_LITERS: Record<VolumeUnit, number> = {
+  l: 1,
+  ml: 0.001,
+  gal: 3.785411784,
+  cup: 0.2365882365,
+}
+
+/**
+ * Converts a volume value from one unit to another.
+ * Supported units: l, ml, gal, cup.
+ * Throws on unrecognised unit.
+ */
+export function convertVolume(value: number, from: VolumeUnit, to: VolumeUnit): number {
+  const fromFactor = VOLUME_TO_LITERS[from]
+  const toFactor = VOLUME_TO_LITERS[to]
+  if (fromFactor == null) throw new Error(`Unknown volume unit: ${from}`)
+  if (toFactor == null) throw new Error(`Unknown volume unit: ${to}`)
+  return value * (fromFactor / toFactor)
+}
+
 // ── Standard deviation (issue 009-1) ─────────────────────────────────────────
 
 /**
@@ -210,4 +263,38 @@ export function stddev(nums: number[], opts?: { sample?: boolean }): number {
   const sumSq = nums.reduce((acc, n) => acc + (n - m) ** 2, 0)
   const divisor = sample ? nums.length - 1 : nums.length
   return Math.sqrt(sumSq / divisor)
+}
+
+// ── Generic conversion API (issue 016) ─────────────────────────────────────
+
+/** All supported units across every conversion category. */
+export type Unit = LengthUnit | WeightUnit | VolumeUnit
+
+type Category = 'length' | 'weight' | 'volume'
+
+/** Maps every known unit string to its category. Built from the factor tables. */
+function unitCategory(unit: string): Category {
+  if (unit in LENGTH_TO_METERS) return 'length'
+  if (unit in WEIGHT_TO_GRAMS) return 'weight'
+  if (unit in VOLUME_TO_LITERS) return 'volume'
+  throw new Error(`Unknown unit: ${unit}`)
+}
+
+/**
+ * Converts a value from one unit to another.
+ * Automatically detects the conversion category (length, weight, volume)
+ * and dispatches to the appropriate converter.
+ * Throws on unknown units or cross-category conversions (e.g. kg → meters).
+ */
+export function convert(value: number, from: string, to: string): number {
+  const fromCat = unitCategory(from)
+  const toCat = unitCategory(to)
+  if (fromCat !== toCat) {
+    throw new Error(`Cannot convert between ${fromCat} and ${toCat}`)
+  }
+  switch (fromCat) {
+    case 'length': return convertLength(value, from as LengthUnit, to as LengthUnit)
+    case 'weight': return convertWeight(value, from as WeightUnit, to as WeightUnit)
+    case 'volume': return convertVolume(value, from as VolumeUnit, to as VolumeUnit)
+  }
 }
