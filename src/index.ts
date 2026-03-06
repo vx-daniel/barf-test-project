@@ -93,6 +93,36 @@ export function isPrime(n: number): boolean {
   return true
 }
 
+// ── GCD and LCM (issue 006) ──────────────────────────────────────────────────
+
+/**
+ * Returns the greatest common divisor of two integers.
+ * Uses the Euclidean algorithm. Negative inputs are treated as their
+ * absolute values. gcd(0, 0) returns 0 by convention.
+ */
+export function gcd(a: number, b: number): number {
+  a = Math.abs(a)
+  b = Math.abs(b)
+  while (b !== 0) {
+    const t = b
+    b = a % b
+    a = t
+  }
+  return a
+}
+
+/**
+ * Returns the least common multiple of two integers.
+ * Uses the identity lcm(a, b) = |a / gcd(a, b)| * |b|.
+ * Returns 0 if either input is 0.
+ */
+export function lcm(a: number, b: number): number {
+  a = Math.abs(a)
+  b = Math.abs(b)
+  if (a === 0 || b === 0) return 0
+  return (a / gcd(a, b)) * b
+}
+
 // ── Standard deviation (issue 009-1) ─────────────────────────────────────────
 
 /**
