@@ -123,6 +123,50 @@ export function lcm(a: number, b: number): number {
   return (a / gcd(a, b)) * b
 }
 
+// ── Rounding (issue 011) ─────────────────────────────────────────────────────
+
+/**
+ * Rounds `n` to `decimals` decimal places.
+ * Uses the string-exponential trick to avoid IEEE 754 pitfalls such as
+ * `Math.round(1.005 * 100) / 100 === 1.00`.
+ */
+export function roundTo(n: number, decimals: number): number {
+  const result = +(Math.round(+(n + 'e+' + decimals)) + 'e-' + decimals)
+  // Avoid returning -0
+  return result === 0 ? 0 : result
+}
+
+/**
+ * Returns the ceiling of `n` rounded to `decimals` decimal places.
+ * Defaults to 0 decimal places (integer ceiling).
+ */
+export function ceil(n: number, decimals = 0): number {
+  return +(Math.ceil(+(n + 'e+' + decimals)) + 'e-' + decimals)
+}
+
+/**
+ * Returns the floor of `n` rounded to `decimals` decimal places.
+ * Defaults to 0 decimal places (integer floor).
+ */
+export function floor(n: number, decimals = 0): number {
+  return +(Math.floor(+(n + 'e+' + decimals)) + 'e-' + decimals)
+}
+
+/**
+ * Rounds `n` using banker's rounding (round-half-to-even).
+ * When the fractional part is exactly 0.5, rounds to the nearest even integer.
+ * Otherwise behaves like `Math.round`.
+ */
+export function roundHalfEven(n: number): number {
+  const fl = Math.floor(n)
+  const frac = n - fl
+  if (Math.abs(frac - 0.5) < Number.EPSILON) {
+    // Exactly halfway — round to nearest even
+    return fl % 2 === 0 ? fl : fl + 1
+  }
+  return Math.round(n)
+}
+
 // ── Standard deviation (issue 009-1) ─────────────────────────────────────────
 
 /**
