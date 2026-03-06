@@ -42,6 +42,26 @@ export function median(nums: number[]): number {
   return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
 }
 
+// ── Mode (issue 003) ────────────────────────────────────────────────────────
+
+/** Returns the mode(s) of an array — the most frequently occurring value(s). Throws on empty array. */
+export function mode(nums: number[]): number[] {
+  if (nums.length === 0) throw new Error('Cannot compute mode of empty array')
+  const freq = new Map<number, number>()
+  for (const n of nums) {
+    freq.set(n, (freq.get(n) ?? 0) + 1)
+  }
+  let maxCount = 0
+  for (const count of freq.values()) {
+    if (count > maxCount) maxCount = count
+  }
+  const modes: number[] = []
+  for (const [value, count] of freq) {
+    if (count === maxCount) modes.push(value)
+  }
+  return modes.sort((a, b) => a - b)
+}
+
 // ── Factorial (issue 004 — IN_PROGRESS, partial) ─────────────────────────────
 
 /** Returns n! (factorial). Throws on negative input. */
