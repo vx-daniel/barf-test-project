@@ -265,6 +265,18 @@ export function stddev(nums: number[], opts?: { sample?: boolean }): number {
   return Math.sqrt(sumSq / divisor)
 }
 
+// ── Percentage formatting (issue 018) ────────────────────────────────────────
+
+/**
+ * Formats a number as a percentage string.
+ * Multiplies by 100 and appends '%'. Optional `decimals` controls
+ * the number of decimal places (default: 0).
+ * Examples: 0.5 → '50%', 0.5 with decimals=2 → '50.00%'
+ */
+export function formatPercent(n: number, decimals = 0): string {
+  return (n * 100).toFixed(decimals) + '%'
+}
+
 // ── Number formatting (issue 017) ────────────────────────────────────────────
 
 /**
